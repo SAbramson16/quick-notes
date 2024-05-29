@@ -6,18 +6,13 @@ const Note = (props) => {
     const [notes, setNotes] = useState([]);
     const [editId, setEditId] = useState(null);
     const [editedNote, setEditedNote] = useState("");
-    
-    //save data to local storage
-    useEffect (() => {
-        localStorage.setItem("Notes", JSON.stringify(notes))
-    }, [notes]);
 
     //get the saved notes and add them to the array 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("Notes"));
-    if (data) {
-        setNotes(data);
-    }
+        if (data) {
+            setNotes(data);
+        }
     }, []);
 
     function handleChange(event) {
@@ -34,12 +29,20 @@ const Note = (props) => {
             id: new Date().getTime(),
             text: inputValue
         };
-        setNotes([...notes, newNote]);
+        setNotes((prevNotes) => {
+            const updatedNotes = [...prevNotes, newNote];
+            localStorage.setItem("Notes", JSON.stringify(updatedNotes)); // Save to localStorage immediately
+            return updatedNotes;
+        });
         setInputValue("");
     }
 
     function deleteNote(id) {
-        setNotes(notes.filter((note) => note.id !== id));
+        setNotes((prevNotes) => {
+            const updatedNotes = prevNotes.filter((note) => note.id !== id);
+            localStorage.setItem("Notes", JSON.stringify(updatedNotes)); // Save to localStorage immediately
+            return updatedNotes;
+        });
     }
 
     function editNote(id, text) {
@@ -49,15 +52,18 @@ const Note = (props) => {
 
     function handleEdit(event, id) {
         event.preventDefault();
-        const updatedNotes = notes.map((note) => {
-            if (note.id === id) {
-                return { ...note, text: editedNote };
-            }
-            return note;
+        setNotes((prevNotes) => {
+            const updatedNotes = prevNotes.map((note) => {
+                if (note.id === id) {
+                    return { ...note, text: editedNote };
+                }
+                return note;
+            });
+            localStorage.setItem("Notes", JSON.stringify(updatedNotes)); // Save to localStorage immediately
+            return updatedNotes;
         });
-        setNotes(updatedNotes);
         setEditId(null);
-        setInputValue("");
+        setEditedNote("");
     }
 
     return (
@@ -88,9 +94,9 @@ const Note = (props) => {
                         ) : (
                             <>
                                 {note.text}
-                                <button
+                                <button className="button" id="editBtn"
                                     onClick={() => editNote(note.id)}>Edit</button>
-                                <button
+                                <button className="button" id="deleteBtn"
                                     onClick={() => deleteNote(note.id)}>Delete</button>
                             </>
                         )}

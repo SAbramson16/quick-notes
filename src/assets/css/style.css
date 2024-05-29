@@ -5,20 +5,54 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+:root{
+    --dark: #232020;
+    --purple: #553739;
+    --offwhite: #FFE3DC;
+    --light: #DBB4AD;
+    --green: #A2AD91;
+    --red: #F13030;
+}
+
 header{
-    background-color: aqua;
-    height: 50px;
+    background-color: var(--green);
+    height: 80px;
     text-align: center;
+    padding-top: 20px;
+}
+
+h1{
+    font-size: 80px;
 }
 
 main{
-    background-color: blueviolet;
+    background-color: var(--dark);
     height: 650px;
     padding: 10px;
 }
 
+h2{
+    color: var(--offwhite);
+}
+
 .note{
-    background-color: chocolate;
+    background-color: var(--purple);
     height: 400px;
     width: 400px;
+    color: var(--offwhite);
+    padding: 5px;
+}
+
+.button{
+    margin: 3px;
+}
+
+#editBtn{
+    border-radius: 5px;
+    background-color: var(--green);
+}
+
+#deleteBtn{
+    border-radius: 5px;
+    background-color: var(--red);
 }
