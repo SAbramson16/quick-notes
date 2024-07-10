@@ -10,9 +10,9 @@ To run this application locally, install the dependencies listed in package.json
 In the terminal enter: "npm run dev". This command will start the server on localhost:3000. 
 
 ## Usage
-The user may type in a note where the note will appear in the note box. The user is able to edit the note, or delete it. The notes are saved in the note box on page reload.
+The user may type in a quick note in the input field, and the note will appear in the note box. The user is able to edit the note, or delete it. The notes are saved in the note box on page reload.
 
-Please follow this link to view this application on GitPages: sabramson16.github.io/quick-notes
+Please follow this link to view this application on Render: 
 
 ## Credits
 
